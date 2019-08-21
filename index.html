@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Rock, Paper, Scissors</title>
+</head>
+<body>
+
+
+<script>
+
+/* computerSelection  */
+
+  function computerPlayer() {
+    let x = Math.floor(Math.random() * 3);
+    if (x === 0) {
+        return "rock";
+    }    
+    else if (x === 1) {
+        return "paper";
+    }  
+    else {
+        return "scissors";
+    }     
+}
+
+
+/* play single round (conditions) */
+
+function playRound(playerSelection, computerSelection) {
+
+    if (playerSelection === computerSelection) {
+        return "It'a a Draw. Please try again.";
+    }
+    else if (playerSelection === "rock") {
+        if (computerSelection === "scissors") {
+            myPoints = myPoints + 1;
+            return "You win! Rock smashes scissors";
+        }
+        else {
+            compPoints = compPoints + 1;
+            return "You lose. Paper wraps rock!";
+        }
+    }
+    else if (playerSelection === "paper") {
+        if (computerSelection === "rock") {
+            myPoints = myPoints + 1;
+            return "You win! Paper wraps rock.";
+        }
+        else {
+            compPoints = compPoints + 1;
+            return "You lose! Scissors cut paper";
+        }
+    }
+    else if (playerSelection === "scissors") {
+        if (computerSelection === "paper") {
+            myPoints = myPoints + 1;
+            return "You win! Scissors cut paper";
+        }
+        else {
+            compPoints = compPoints + 1;
+            return "You lose! Rock smashes scissors";
+        }
+    }
+} 
+
+
+/* score keeper */
+
+let myPoints = 0;
+let compPoints = 0;
+
+
+/* play 5 round game */
+
+function game() {
+  for (var i = 0; i < 5; i++) { 
+    let computerSelection = computerPlayer(); 
+    let playerSelection = prompt("Choose rock, paper, or scissors.");
+    playerSelection = playerSelection.toLocaleLowerCase();
+
+/* stop on game 5 / final score declaration */
+
+    console.log(playRound(playerSelection, computerSelection));
+    if (i === 4){
+       if (myPoints > compPoints) {
+           console.log("You Win!!! You beat the computer " + myPoints + " to " + compPoints + ".");
+       }
+       else {
+           console.log("You lose. The computer wins " + compPoints + " to " + myPoints + ".");
+       }    
+    }
+  }
+}
+
+
+/* call game to begin */
+
+game();
+
+   
+</script> 
+</body>
+</html>
+
