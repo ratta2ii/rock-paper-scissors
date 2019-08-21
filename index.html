@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Rock, Paper, Scissors</title>
 </head>
+
 <body>
 
 
 <script>
 
-/* computerSelection  */
+/* computer selection  */
 
-  function computerPlayer() {
-    let x = Math.floor(Math.random() * 3);
-    if (x === 0) {
-        return "rock";
-    }    
-    else if (x === 1) {
-        return "paper";
-    }  
-    else {
-        return "scissors";
-    }     
+function computerPlay() {
+    let options = ["rock", "paper", "scissors"];
+    return options[Math.floor(Math.random() * 3)];
 }
+
+
+/* player selection */
+
+function userPlay() {
+    let userChoice = prompt("Type in your pick: rock, paper, or scissors");
+    userChoice.toLowerCase();
+    while (true) {
+        if (userChoice === "rock" || userChoice === "paper" || userChoice === "scissors") {
+            break;
+        }
+        else {
+            alert("This is not an option. Please choose again!")
+            userChoice = prompt("Type in your pick: rock, paper, or scissors");userChoice.toLowerCase();
+        }
+    }
+    return userChoice;
+} 
 
 
 /* play single round (conditions) */
@@ -29,35 +41,37 @@
 function playRound(playerSelection, computerSelection) {
 
     if (playerSelection === computerSelection) {
+        draws++
         return "It'a a Draw. Please try again.";
+
     }
     else if (playerSelection === "rock") {
         if (computerSelection === "scissors") {
-            myPoints = myPoints + 1;
+            playerPoints++
             return "You win! Rock smashes scissors";
         }
         else {
-            compPoints = compPoints + 1;
+            compPoints++;
             return "You lose. Paper wraps rock!";
         }
     }
     else if (playerSelection === "paper") {
         if (computerSelection === "rock") {
-            myPoints = myPoints + 1;
+            playerPoints++;
             return "You win! Paper wraps rock.";
         }
         else {
-            compPoints = compPoints + 1;
+            compPoints++;
             return "You lose! Scissors cut paper";
         }
     }
     else if (playerSelection === "scissors") {
         if (computerSelection === "paper") {
-            myPoints = myPoints + 1;
+            playerPoints++;
             return "You win! Scissors cut paper";
         }
         else {
-            compPoints = compPoints + 1;
+            compPoints++;
             return "You lose! Rock smashes scissors";
         }
     }
@@ -66,27 +80,28 @@ function playRound(playerSelection, computerSelection) {
 
 /* score keeper */
 
-let myPoints = 0;
+let playerPoints = 0;
 let compPoints = 0;
+let draws = 0;
 
 
 /* play 5 round game */
 
 function game() {
-  for (var i = 0; i < 5; i++) { 
-    let computerSelection = computerPlayer(); 
-    let playerSelection = prompt("Choose rock, paper, or scissors.");
-    playerSelection = playerSelection.toLocaleLowerCase();
+  for (let game = 0; game < 5; game++) { 
+    let computerSelection = computerPlay(); 
+    let playerSelection = userPlay();
+
 
 /* stop on game 5 / final score declaration */
 
     console.log(playRound(playerSelection, computerSelection));
-    if (i === 4){
-       if (myPoints > compPoints) {
-           console.log("You Win!!! You beat the computer " + myPoints + " to " + compPoints + ".");
+    if (game === 4){
+       if (playerPoints > compPoints) {
+           console.log("You Win!!! Your score: " + playerPoints + ". Computer score: " + compPoints + ". Draws: " + draws + ".");
        }
        else {
-           console.log("You lose. The computer wins " + compPoints + " to " + myPoints + ".");
+         console.log("You lose! The computer scored: " + compPoints + "   You scored: " + playerPoints + "   Draws: " + draws);
        }    
     }
   }
@@ -102,3 +117,14 @@ game();
 </body>
 </html>
 
+
+
+
+<!-- Git Commit Message 
+
+Reduced code in computerPlay().
+Added a userPlay() function to make sure a proper entry was given.
+Added a draw counter, plus chnaged all counters to use ++ syntax.
+Used more appropriate names for functions and variables.
+
+-->
